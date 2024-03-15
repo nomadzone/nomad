@@ -1,0 +1,27 @@
+version: "3.7"
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-nomad
+    restart: always
+    ports:
+      - 15432:5432
+    env_file:
+      - .env
+    volumes:
+      - postgres:/var/lib/postgresql/nomad/data
+  redis:
+    image: redis/redis-stack:latest
+    container_name: redis-stack-nomad
+    restart: always
+    ports:
+      - 16379:6379
+      - 18001:8001
+    volumes:
+      - redis:/var/lib/redis/nomad/data
+
+volumes:
+  postgres:
+    name: nomad-db
+  redis:
+    name: nomad-redis
