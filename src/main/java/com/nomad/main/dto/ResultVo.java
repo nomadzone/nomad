@@ -9,10 +9,16 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResultVo {
+public class ResultVo<T> {
 
     public static final String SUCCEED = "succeed";
+    public static final String FAILED = "failed";
 
+    /**
+     * succeed result
+     * @param data
+     * @return
+     */
     public static ResultVo success(Object data) {
         return ResultVo.builder()
                 .code(0)
@@ -21,8 +27,24 @@ public class ResultVo {
                 .build();
     }
 
+    /**
+     * failed result
+     * @param message
+     * @return
+     */
+    public static ResultVo failed(String message) {
+        ResultVo<Object> build = ResultVo.builder()
+                .code(0)
+                .msg(ResultVo.FAILED)
+                .build();
+        if(message != null) {
+            build.setMsg(message);
+        }
+        return build;
+    }
+
     private int code;
     private String msg;
-    private Object data;
+    private T data;
 
 }

@@ -1,7 +1,7 @@
 package com.nomad.main.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.nomad.main.entity.User;
+import com.nomad.main.entity.Likes;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2024-03-17
  */
 @Mapper
-public interface UserMapper extends BaseMapper<User> {
+public interface LikesMapper extends BaseMapper<Likes> {
 
 }

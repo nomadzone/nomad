@@ -1,7 +1,7 @@
 package com.nomad.main.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.nomad.main.entity.User;
+import com.nomad.main.entity.Fan;
 
 /**
  * <p>
@@ -11,6 +11,6 @@ import com.nomad.main.entity.User;
  * @author JiaPeng
  * @since 2024-03-17
  */
-public interface UserService extends IService<User> {
-//    boolean changeAvatar(User user);
+public interface FanService extends IService<Fan> {
+
 }
