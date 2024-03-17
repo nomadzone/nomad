@@ -80,4 +80,5 @@ public class UserController {
         boolean b = userService.removeById(id);
         return ResultVo.success(null);
     }
+
 }
