@@ -11,7 +11,7 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "public.user", autoResultMap = true)
+@TableName(value = "user", autoResultMap = true)
 public class UserEntity {
     @TableId(type = IdType.AUTO)
     private Long id;
