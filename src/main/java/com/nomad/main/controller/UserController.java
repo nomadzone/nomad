@@ -1,18 +1,13 @@
 package com.nomad.main.controller;
 import com.nomad.main.dto.ResultVo;
-import com.nomad.main.dto.UserDto;
 import com.nomad.main.entity.User;
-//import com.nomad.main.entity.UserEntity;
-//import com.nomad.main.service.old.UserService;
 import com.nomad.main.service.ImageService;
 import com.nomad.main.service.UserService;
-import com.nomad.main.validation.OnUpdate;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
