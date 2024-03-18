@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Tag(name = "SubComments", description = "SubComments APIs")
 @RestController
-@RequestMapping("/subComments")
+@RequestMapping("/api/v1/subComments")
 public class SubCommentsController {
 
 }

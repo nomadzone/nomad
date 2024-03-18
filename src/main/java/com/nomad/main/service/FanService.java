@@ -13,4 +13,6 @@ import com.nomad.main.entity.Fan;
  */
 public interface FanService extends IService<Fan> {
 
+    Fan findByUserId(Long userId, Long loginUserId);
+
 }

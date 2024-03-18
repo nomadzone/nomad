@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.nomad.main.entity.Likes;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -14,5 +16,9 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface LikesMapper extends BaseMapper<Likes> {
+
+    Likes findByPostId(Long postId, Long loginUserId);
+
+    List<Likes> getByUserId(Long loginUserId);
 
 }

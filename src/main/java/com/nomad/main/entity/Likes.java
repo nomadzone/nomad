@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "user", autoResultMap = true)
+@TableName(value = "likes", autoResultMap = true)
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 public class Likes implements Serializable {

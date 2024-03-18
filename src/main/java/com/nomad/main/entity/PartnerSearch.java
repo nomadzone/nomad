@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author JiaPeng
- * @since 2024-03-17
+ * @since 2024-03-18
  */
 @Data
 @Builder
@@ -22,27 +22,17 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "posts", autoResultMap = true)
+@TableName(value = "partner_search", autoResultMap = true)
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Posts implements Serializable {
+public class PartnerSearch implements Serializable {
 
     private static final long serialVersionUID=1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    private Long userId;
-
-    private String title;
-
-    private String content;
-
-    private String resources;
-
-    private Long createdAt;
-
-    private Long updatedAt;
+    private Long intiatorId;
 
     private Float latitude;
 
@@ -50,7 +40,17 @@ public class Posts implements Serializable {
 
     private String locationName;
 
+    private String title;
+
+    private String content;
+
+    private Long createdAt;
+
+    private Long updateAt;
+
     private String imageNames;
+
+    private Boolean status;
 
 
 }

@@ -33,6 +33,11 @@ public class UserController {
         if(id == null) {
             return ResultVo.failed("'id'不能为空.");
         }
+        // TODO XXX: login user id
+        Long loginUserId = 1L;
+        if(id != loginUserId) {
+            return ResultVo.failed("无权限修改他人头像");
+        }
 
         ResultVo<String> stringResultVo = imageService.uploadImage(file);
         String fileName = stringResultVo.getData();
@@ -51,7 +56,7 @@ public class UserController {
 
     @Operation(summary = "获取个人信息", description = "")
     @GetMapping("/{id}")
-    public ResultVo<User> getMonitorAlertById(@PathVariable Long id) {
+    public ResultVo<User> getUserById(@PathVariable Long id) {
         User user = userService.getById(id);
         return ResultVo.success(user);
     }
@@ -63,10 +68,23 @@ public class UserController {
         if(user.getId() == null) {
             return ResultVo.failed("'id'不能为空.");
         }
+
+        // TODO XXX: login user id
+        Long loginUserId = 1L;
+        if(user.getId() != loginUserId) {
+            return ResultVo.failed("无权限修改他人用户信息");
+        }
+
         boolean b = userService.updateById(user);
         return ResultVo.success(null);
     }
 
+    @Operation(summary = "获取个人社交信息", description = "")
+    @GetMapping("/social/{id}")
+    public ResultVo<User> getSocialById(@PathVariable Long id) {
+        // TODO XXX: 点赞、关注、粉丝。根据用户find
+        return ResultVo.success(null);
+    }
 
 //    @PostMapping()
 //    public User createUser(@RequestBody @Valid UserDto request) {
