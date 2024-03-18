@@ -1,17 +1,4 @@
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:15432/indexer
-    username: postgres
-    password: password
-mybatis-plus:
-  configuration:
-    cache-enabled: true
-    use-generated-keys: true
-    default-executor-type: REUSE
-    use-actual-param-name: true
-
-springdoc:
-  swagger-ui:
-    path: /doc/swagger-ui
-  api-docs:
-    path: /api-docs
+  profiles:
+    active: dev
+#    active: prod

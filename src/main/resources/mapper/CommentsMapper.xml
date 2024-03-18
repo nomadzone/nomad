@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nomad.main.mapper.CommentsMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nomad.main.entity.Comments">
+        <id column="id" property="id" />
+        <result column="post_id" property="postId" />
+        <result column="user_id" property="userId" />
+        <result column="content" property="content" />
+        <result column="created_at" property="createdAt" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, post_id, user_id, content, created_at, status
+    </sql>
+
+</mapper>
