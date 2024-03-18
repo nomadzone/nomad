@@ -15,4 +15,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface FanMapper extends BaseMapper<Fan> {
 
+    Fan findByUserId(Long userId, Long loginUserId);
+
 }

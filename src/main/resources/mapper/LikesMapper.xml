@@ -14,5 +14,13 @@
     <sql id="Base_Column_List">
         id, post_id, user_id, created_at
     </sql>
+    
+    <select id="findByPostId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select * from likes where post_id = #{postId} and user_id = #{loginUserId}
+    </select>
+    
+    <select id="getByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select * from likes where user_id = #{loginUserId}
+    </select>
 
 </mapper>

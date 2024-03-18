@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nomad.main.mapper.PartnerSearchMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.nomad.main.entity.PartnerSearch">
+        <id column="id" property="id" />
+        <result column="intiator_id" property="intiatorId" />
+        <result column="latitude" property="latitude" />
+        <result column="longitude" property="longitude" />
+        <result column="location_name" property="locationName" />
+        <result column="title" property="title" />
+        <result column="content" property="content" />
+        <result column="created_at" property="createdAt" />
+        <result column="update_at" property="updateAt" />
+        <result column="image_names" property="imageNames" />
+        <result column="status" property="status" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, intiator_id, latitude, longitude, location_name, title, content, created_at, update_at, image_names, status
+    </sql>
+
+    <select id="findByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select * from partner_search where intiator_id = #{loginUserId}
+    </select>
+
+</mapper>
+

@@ -14,12 +14,20 @@
         <result column="latitude" property="latitude" />
         <result column="longitude" property="longitude" />
         <result column="location_name" property="locationName" />
-        <result column="image_url" property="imageUrl" />
+        <result column="image_names" property="imageNames" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_id, title, content, resources, created_at, updated_at, latitude, longitude, location_name, image_url
+        id, user_id, title, content, resources, created_at, updated_at, latitude, longitude, location_name, image_names
     </sql>
+
+    <select id="findLikesByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select p.* from likes l left join posts p on l.post_id = p.id where l.user_id = #{loginUserId};
+    </select>
+
+    <select id="findByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select * from posts where user_id = #{loginUserId}
+    </select>
 
 </mapper>

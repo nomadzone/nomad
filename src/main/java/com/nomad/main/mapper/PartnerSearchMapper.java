@@ -1,10 +1,8 @@
 package com.nomad.main.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.nomad.main.entity.Comments;
+import com.nomad.main.entity.PartnerSearch;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.List;
 
 /**
  * <p>
@@ -12,11 +10,11 @@ import java.util.List;
  * </p>
  *
  * @author JiaPeng
- * @since 2024-03-17
+ * @since 2024-03-18
  */
 @Mapper
-public interface CommentsMapper extends BaseMapper<Comments> {
+public interface PartnerSearchMapper extends BaseMapper<PartnerSearch> {
 
-    List<Comments> getListByPostId(Long postId);
+    PartnerSearch findByUserId(Long loginUserId);
 
 }

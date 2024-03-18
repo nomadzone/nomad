@@ -13,5 +13,9 @@
     <sql id="Base_Column_List">
         id, user_id, fan_id
     </sql>
+    
+    <select id="findByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select * from fan where user_id = #{userId} and fan_id = #{loginUserId}
+    </select>
 
 </mapper>

@@ -17,4 +17,8 @@
         id, post_id, user_id, content, created_at, status
     </sql>
 
+    <select id="getListByPostId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select * from comments where post_id = #{postId}
+    </select>
+
 </mapper>
