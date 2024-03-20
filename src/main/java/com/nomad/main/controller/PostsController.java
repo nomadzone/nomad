@@ -1,8 +1,10 @@
 package com.nomad.main.controller;
 
 
+import com.nomad.main.dto.PostsVO;
 import com.nomad.main.dto.ResultVo;
 import com.nomad.main.entity.Likes;
+import com.nomad.main.entity.PartnerSearch;
 import com.nomad.main.entity.Posts;
 import com.nomad.main.service.PostsService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -124,6 +126,18 @@ public class PostsController {
         List<Posts> postsList = postsService.findByUserId(loginUserId);
         return ResultVo.success(postsList);
 
+    }
+
+    @Operation(summary = "top3大家热议帖子-通过位置获取", description = "")
+    @GetMapping("/getTop3/{locationName}")
+    public ResultVo<List<Posts>> getTop3(@PathVariable("locationName")String locationName){
+        return postsService.getTop3(locationName);
+    }
+
+    @Operation(summary = "获取帖子（怎么玩）-通过位置获取", description = "")
+    @GetMapping("/getPosts/{locationName}")
+    public ResultVo<List<PostsVO>> getPosts(@PathVariable("locationName")String locationName){
+        return  postsService.getPosts(locationName);
     }
 
 }

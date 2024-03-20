@@ -1,6 +1,8 @@
 package com.nomad.main.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.nomad.main.dto.PostsVO;
+import com.nomad.main.dto.ResultVo;
 import com.nomad.main.entity.Posts;
 
 import java.util.List;
@@ -19,4 +21,7 @@ public interface PostsService extends IService<Posts> {
 
     List<Posts> findByUserId(Long loginUserId);
 
+    ResultVo<List<Posts>> getTop3(String locationName);
+
+    ResultVo<List<PostsVO>> getPosts(String locationName);
 }

@@ -1,4 +1,4 @@
-package com.nomad.main.entity;
+package com.nomad.main.dto;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -14,7 +14,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author JiaPeng
- * @since 2024-03-18
+ * @since 2024-03-17
  */
 @Data
 @Builder
@@ -22,17 +22,26 @@ import java.io.Serializable;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "partner_search", autoResultMap = true)
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class PartnerSearch implements Serializable {
+public class PostsVO implements Serializable {
 
     private static final long serialVersionUID=1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
+
     private Long id;
 
-    private Long intiatorId;
+    private Long userId;
+
+    private String title;
+
+    private String content;
+
+    private String resources;
+
+    private Long createdAt;
+
+    private Long updatedAt;
 
     private Float latitude;
 
@@ -40,22 +49,12 @@ public class PartnerSearch implements Serializable {
 
     private String locationName;
 
-    private String title;
-
-    private String content;
-
-    private Long createdAt;
-
-    private Long updateAt;
-
     private String imageNames;
 
-    private Boolean status;
-
     /**
-     * 区分是搭子还是标记 1表示搭子 2表示 标记
+     * 点赞数
      */
-    private String type;
+    private Integer likes;
 
 
 }

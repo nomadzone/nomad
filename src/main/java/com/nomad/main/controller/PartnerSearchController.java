@@ -2,6 +2,7 @@ package com.nomad.main.controller;
 
 
 import com.nomad.main.dto.ResultVo;
+import com.nomad.main.entity.Destination;
 import com.nomad.main.entity.PartnerSearch;
 import com.nomad.main.service.PartnerSearchService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,6 +10,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * <p>
@@ -53,7 +56,7 @@ public class PartnerSearchController {
         partnerSearch.setIntiatorId(loginUserId);
         partnerSearch.setCreatedAt(System.currentTimeMillis());
         partnerSearch.setUpdateAt(System.currentTimeMillis());
-
+        partnerSearch.setType("1");//表示搭子
         boolean save = partnerSearchService.save(partnerSearch);
         return ResultVo.success(null);
 
@@ -95,6 +98,51 @@ public class PartnerSearchController {
     public ResultVo delete(@PathVariable Long id) {
         boolean b = partnerSearchService.removeById(id);
         return ResultVo.success(null);
+    }
+
+    @Operation(summary = "一起玩(更多)-通过位置获取", description = "")
+    @GetMapping("/playTogether/{locationName}")
+    public ResultVo<List<PartnerSearch>> getPlayTogether(@PathVariable("locationName")String locationName){
+       return partnerSearchService.getPlayTogether(locationName);
+    }
+
+    @Operation(summary = "一起玩(前两个)-通过位置获取", description = "")
+    @GetMapping("/playTogetherTop2/{locationName}")
+    public ResultVo<List<PartnerSearch>> getPlayTogetherTop2(@PathVariable("locationName")String locationName){
+        return partnerSearchService.getPlayTogetherTop2(locationName);
+    }
+
+    @Operation(summary = "标记-新增", description = "")
+    @PostMapping("/mark")
+    public ResultVo markCreate(@RequestBody PartnerSearch partnerSearch) {
+
+        // TODO : 空字符串被允许吗？
+        if(partnerSearch.getLongitude() == null) {
+            return ResultVo.failed("'longitude'不能为空");
+        }
+        if(partnerSearch.getLatitude() == null) {
+            return ResultVo.failed("'latitude'不能为空");
+        }
+        if(partnerSearch.getLocationName() == null) {
+            return ResultVo.failed("'locationName'不能为空");
+        }
+        if(partnerSearch.getTitle() == null) {
+            return ResultVo.failed("'title'不能为空");
+        }
+        if(partnerSearch.getContent() == null) {
+            return ResultVo.failed("'content'不能为空");
+        }
+
+        partnerSearch.setId(null);
+        // TODO XXX: login user id
+        Long loginUserId = 1L;
+        partnerSearch.setIntiatorId(loginUserId);
+        partnerSearch.setCreatedAt(System.currentTimeMillis());
+        partnerSearch.setUpdateAt(System.currentTimeMillis());
+        partnerSearch.setType("2");//表示标记
+        boolean save = partnerSearchService.save(partnerSearch);
+        return ResultVo.success(null);
+
     }
 
 }

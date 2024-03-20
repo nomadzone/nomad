@@ -22,5 +22,26 @@
     <select id="getByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select * from likes where user_id = #{loginUserId}
     </select>
+    <select id="getTop3" resultType="com.nomad.main.dto.LikesTopVo" parameterType="java.util.List">
+        SELECT post_id, COUNT(*) AS count
+        FROM likes
+        WHERE post_id IN
+        <foreach collection="postIds" item="postId" open="(" separator="," close=")">
+            #{postId}
+        </foreach>
+        GROUP BY post_id
+        ORDER BY count DESC
+        LIMIT 3
+    </select>
 
+    <select id="getTop" resultType="com.nomad.main.dto.LikesTopVo" parameterType="java.util.List">
+        SELECT post_id, COUNT(*) AS count
+        FROM likes
+        WHERE post_id IN
+        <foreach collection="postIds" item="postId" open="(" separator="," close=")">
+            #{postId}
+        </foreach>
+        GROUP BY post_id
+        ORDER BY count DESC
+    </select>
 </mapper>
