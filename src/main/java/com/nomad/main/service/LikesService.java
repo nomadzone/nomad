@@ -19,4 +19,6 @@ public interface LikesService extends IService<Likes> {
 
     List<Likes> getByUserId(Long loginUserId);
 
+    int countLike(Long userId);
+
 }

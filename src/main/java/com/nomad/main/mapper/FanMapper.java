@@ -17,5 +17,8 @@ public interface FanMapper extends BaseMapper<Fan> {
 
     Fan findByUserId(Long userId, Long loginUserId);
 
+    int countFollow(Long userId);
+
+    int countFan(Long userId);
 
 }

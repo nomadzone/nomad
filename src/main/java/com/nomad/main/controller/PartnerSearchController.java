@@ -8,8 +8,12 @@ import com.nomad.main.service.PartnerSearchService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import java.util.List;
 
@@ -56,7 +60,7 @@ public class PartnerSearchController {
         partnerSearch.setIntiatorId(loginUserId);
         partnerSearch.setCreatedAt(System.currentTimeMillis());
         partnerSearch.setUpdateAt(System.currentTimeMillis());
-        partnerSearch.setType("1");//表示搭子
+
         boolean save = partnerSearchService.save(partnerSearch);
         return ResultVo.success(null);
 
@@ -96,6 +100,18 @@ public class PartnerSearchController {
     @Operation(summary = "搭子-删除", description = "")
     @DeleteMapping("/{id}")
     public ResultVo delete(@PathVariable Long id) {
+
+        if(id == null) {
+            return ResultVo.failed("'id'不能为空");
+        }
+
+        // TODO XXX: login user id
+        Long loginUserId = 1L;
+        PartnerSearch havePartnerSearch = partnerSearchService.findByUserId(id, loginUserId);
+        if(havePartnerSearch == null) {
+            return ResultVo.failed("不能删除他人发布的信息");
+        }
+
         boolean b = partnerSearchService.removeById(id);
         return ResultVo.success(null);
     }
@@ -143,6 +159,40 @@ public class PartnerSearchController {
         boolean save = partnerSearchService.save(partnerSearch);
         return ResultVo.success(null);
 
+    }
+
+    @Operation(summary = "搭子-活动列表", description = "参数经纬度是当前用户的经纬度，该接口返回10km之内的数据。(使用Sphere坐标系计算)")
+    @GetMapping("/list/{latitude}/{longitude}")
+    public ResultVo<List<PartnerSearch>> list(@PathVariable Float latitude, @PathVariable Float longitude) {
+        List<PartnerSearch> reList = partnerSearchService.listNkm(latitude, longitude, 15);
+        return ResultVo.success(reList);
+    }
+
+    @Operation(summary = "搭子-地图信息", description = "分组方式, 按照地点名称进行分组。参数经纬度是当前用户的经纬度，该接口返回10km之内的数据。(使用Sphere坐标系计算)")
+    @GetMapping("/mapinfo/{latitude}/{longitude}")
+    public ResultVo<Map<String, List<PartnerSearch>>> mapInfo(@PathVariable Float latitude, @PathVariable Float longitude) {
+        List<PartnerSearch> list = partnerSearchService.listNkm(latitude, longitude, 15);
+        // group by location name.
+        Map<String, List<PartnerSearch>> map = new HashMap<>();
+        for(PartnerSearch partnerSearch : list) {
+            String locationName = partnerSearch.getLocationName();
+            List<PartnerSearch> mapList = map.get(locationName);
+            if(mapList == null) {
+                mapList = new ArrayList<>();
+            }
+            mapList.add(partnerSearch);
+            map.put(locationName, mapList);
+        }
+        return ResultVo.success(map);
+
+    }
+
+    @Operation(summary = "搭子-活动搜索", description = "返回list包含：参数模糊匹配到位置名称、标题名、内容的数据")
+    @GetMapping("/search/{key}")
+    public ResultVo<List<PartnerSearch>> search(@PathVariable String key) {
+
+        List<PartnerSearch> reList = partnerSearchService.search(key);
+        return ResultVo.success(reList);
     }
 
 }

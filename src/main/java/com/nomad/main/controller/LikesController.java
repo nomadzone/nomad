@@ -35,6 +35,7 @@ public class LikesController {
         Likes like = Likes.builder()
                 .postId(postId)
                 .userId(loginUserId)
+                .createdAt(System.currentTimeMillis())
                 .build();
 
         // Prevent duplicate likes.

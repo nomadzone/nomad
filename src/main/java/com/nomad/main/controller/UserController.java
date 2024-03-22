@@ -1,8 +1,10 @@
 package com.nomad.main.controller;
+import cn.hutool.core.lang.hash.Hash;
 import com.nomad.main.dto.ResultVo;
+import com.nomad.main.entity.PartnerSearch;
+import com.nomad.main.entity.Posts;
 import com.nomad.main.entity.User;
-import com.nomad.main.service.ImageService;
-import com.nomad.main.service.UserService;
+import com.nomad.main.service.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * User Controller - used to get user info
@@ -25,6 +30,18 @@ public class UserController {
 
     @Autowired
     ImageService imageService;
+
+    @Autowired
+    PartnerSearchService partnerSearchService;
+
+    @Autowired
+    PostsService postsService;
+
+    @Autowired
+    FanService fanService;
+
+    @Autowired
+    LikesService likesService;
 
     @Operation(summary = "修改头像", description = "form-data; key=>file,value=>图片。")
     @PostMapping("/changeAvatar/{id}")
@@ -80,10 +97,49 @@ public class UserController {
     }
 
     @Operation(summary = "获取个人社交信息", description = "")
-    @GetMapping("/social/{id}")
-    public ResultVo<User> getSocialById(@PathVariable Long id) {
-        // TODO XXX: 点赞、关注、粉丝。根据用户find
-        return ResultVo.success(null);
+    @GetMapping("/social/{userId}")
+    public ResultVo<User> getSocialById(@PathVariable Long userId) {
+
+        // 关注
+        int followCount = fanService.countFollow(userId);
+        // 粉丝
+        int fanCount = fanService.countFan(userId);
+        // 粉丝
+        int likeCount = likesService.countLike(userId);
+
+        // TODO: v1.1.0版本不统计对评论的点赞
+
+        Map<String, Integer> map = new HashMap<>();
+        map.put("follow", followCount);
+        map.put("fan", fanCount);
+        map.put("like", likeCount);
+        return ResultVo.success(map);
+
+    }
+
+    @Operation(summary = "搭子-发布活动列表", description = "根据用户查询活动列表")
+    @GetMapping("/listByUser/{userId}")
+    public ResultVo<List<PartnerSearch>> listByUser(@PathVariable Long userId) {
+        List<PartnerSearch> reList = partnerSearchService.findByUserId2(userId);
+        return ResultVo.success(reList);
+    }
+
+    @Operation(summary = "发布内容list", description = "")
+    @GetMapping("/list/{userId}")
+    public ResultVo<List<Posts>> list(@PathVariable Long userId) {
+
+        List<Posts> postsList = postsService.findByUserId(userId);
+        return ResultVo.success(postsList);
+
+    }
+
+    @Operation(summary = "点赞内容list", description = "")
+    @GetMapping("/likes/{userId}")
+    public ResultVo<List<Posts>> likes(@PathVariable Long userId) {
+
+        List<Posts> postsList = postsService.findLikesByUserId(userId);
+        return ResultVo.success(postsList);
+
     }
 
 //    @PostMapping()

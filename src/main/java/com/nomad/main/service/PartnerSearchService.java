@@ -16,7 +16,13 @@ import java.util.List;
  */
 public interface PartnerSearchService extends IService<PartnerSearch> {
 
-    PartnerSearch findByUserId(Long loginUserId);
+    PartnerSearch findByUserId(Long id, Long loginUserId);
+
+    List<PartnerSearch> findByUserId2(Long loginUserId);
+
+    List<PartnerSearch> listNkm(Float latitude, Float longitude, int km);
+
+    List<PartnerSearch> search(String key);
 
     ResultVo<List<PartnerSearch>> getPlayTogether(String locationName);
     ResultVo<List<PartnerSearch>> getPlayTogetherTop2(String locationName);

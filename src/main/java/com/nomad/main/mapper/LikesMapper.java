@@ -1,7 +1,6 @@
 package com.nomad.main.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.nomad.main.dto.LikesTopVo;
 import com.nomad.main.entity.Likes;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -21,6 +20,8 @@ public interface LikesMapper extends BaseMapper<Likes> {
     Likes findByPostId(Long postId, Long loginUserId);
 
     List<Likes> getByUserId(Long loginUserId);
+
+    int countLike(Long userId);
 
     List<LikesTopVo> getTop3(List<Long> postIds);
     List<LikesTopVo> getTop(List<Long> postIds);

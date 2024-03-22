@@ -34,7 +34,7 @@ public class ResultVo<T> {
      */
     public static ResultVo failed(String message) {
         ResultVo<Object> build = ResultVo.builder()
-                .code(0)
+                .code(500)
                 .msg(ResultVo.FAILED)
                 .build();
         if(message != null) {

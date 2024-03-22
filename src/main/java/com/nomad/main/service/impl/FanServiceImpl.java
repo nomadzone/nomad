@@ -26,4 +26,12 @@ public class FanServiceImpl extends ServiceImpl<FanMapper, Fan> implements FanSe
         return fan;
     }
 
+    public int countFollow(Long userId) {
+        return fanMapper.countFollow(userId);
+    }
+
+    public int countFan(Long userId) {
+        return fanMapper.countFan(userId);
+    }
+
 }
