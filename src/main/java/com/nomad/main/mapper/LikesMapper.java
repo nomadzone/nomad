@@ -1,6 +1,7 @@
 package com.nomad.main.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.nomad.main.dto.LikesTopVo;
 import com.nomad.main.entity.Likes;
 import org.apache.ibatis.annotations.Mapper;
 
