@@ -4,6 +4,7 @@ package com.nomad.main.controller;
 import com.nomad.main.dto.ResultVo;
 import com.nomad.main.entity.Fan;
 import com.nomad.main.service.FanService;
+import com.nomad.main.utils.AuthUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,8 +31,7 @@ public class FanController {
     @PostMapping("/{userId}")
     public ResultVo follow(@PathVariable Long userId) {
 
-        // TODO XXX: get login user id
-        Long loginUserId = 1L;
+        Long loginUserId = AuthUtil.getLoginUserId();
 
         // Prevent duplicate follow.
         Fan fan = fanService.findByUserId(userId, loginUserId);
@@ -53,8 +53,7 @@ public class FanController {
     @DeleteMapping("/{userId}")
     public ResultVo unfollow(@PathVariable Long userId) {
 
-        // TODO XXX: get login user id
-        Long loginUserId = 1L;
+        Long loginUserId = AuthUtil.getLoginUserId();
 
         Fan fan = fanService.findByUserId(userId, loginUserId);
         if(fan == null) {

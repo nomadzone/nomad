@@ -5,6 +5,7 @@ import com.nomad.main.entity.PartnerSearch;
 import com.nomad.main.entity.Posts;
 import com.nomad.main.entity.User;
 import com.nomad.main.service.*;
+import com.nomad.main.utils.AuthUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.annotation.Resource;
@@ -50,8 +51,7 @@ public class UserController {
         if(id == null) {
             return ResultVo.failed("'id'不能为空.");
         }
-        // TODO XXX: login user id
-        Long loginUserId = 1L;
+        Long loginUserId = AuthUtil.getLoginUserId();
         if(id != loginUserId) {
             return ResultVo.failed("无权限修改他人头像");
         }
@@ -86,8 +86,7 @@ public class UserController {
             return ResultVo.failed("'id'不能为空.");
         }
 
-        // TODO XXX: login user id
-        Long loginUserId = 1L;
+        Long loginUserId = AuthUtil.getLoginUserId();
         if(user.getId() != loginUserId) {
             return ResultVo.failed("无权限修改他人用户信息");
         }

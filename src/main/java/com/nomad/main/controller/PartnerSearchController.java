@@ -5,8 +5,10 @@ import com.nomad.main.dto.ResultVo;
 import com.nomad.main.entity.Destination;
 import com.nomad.main.entity.PartnerSearch;
 import com.nomad.main.service.PartnerSearchService;
+import com.nomad.main.utils.AuthUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,14 +72,12 @@ public class PartnerSearchController {
     @PutMapping()
     public ResultVo update(@RequestBody PartnerSearch partnerSearch) {
 
-        // TODO : 空字符串被允许吗？
         if(partnerSearch.getId() == null) {
             return ResultVo.failed("'id'为空");
         }
 
-        // TODO XXX: login user id
-        Long loginUserId = 1L;
-        PartnerSearch havePartnerSearch = partnerSearchService.findByUserId(loginUserId);
+        Long loginUserId = AuthUtil.getLoginUserId();
+        PartnerSearch havePartnerSearch = partnerSearchService.findByUserId(partnerSearch.getId(), loginUserId);
         if(havePartnerSearch == null) {
             return ResultVo.failed("不能修改他人发布的信息");
         }
@@ -105,8 +105,7 @@ public class PartnerSearchController {
             return ResultVo.failed("'id'不能为空");
         }
 
-        // TODO XXX: login user id
-        Long loginUserId = 1L;
+        Long loginUserId = AuthUtil.getLoginUserId();
         PartnerSearch havePartnerSearch = partnerSearchService.findByUserId(id, loginUserId);
         if(havePartnerSearch == null) {
             return ResultVo.failed("不能删除他人发布的信息");
