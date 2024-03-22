@@ -34,6 +34,10 @@
         LIMIT 3
     </select>
 
+    <select id="countLike" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        select count(*) from `likes` where user_id = #{userId}
+    </select>
+
     <select id="getTop" resultType="com.nomad.main.dto.LikesTopVo" parameterType="java.util.List">
         SELECT post_id, COUNT(*) AS count
         FROM likes

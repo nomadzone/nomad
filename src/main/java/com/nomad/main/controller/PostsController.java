@@ -7,6 +7,7 @@ import com.nomad.main.entity.Likes;
 import com.nomad.main.entity.PartnerSearch;
 import com.nomad.main.entity.Posts;
 import com.nomad.main.service.PostsService;
+import com.nomad.main.utils.AuthUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +54,7 @@ public class PostsController {
             return ResultVo.failed("'locationName'不能为空");
         }
 
-        // TODO XXX: get login user id
-        Long loginUserId = 1L;
+        Long loginUserId = AuthUtil.getLoginUserId();
         posts.setUserId(loginUserId);
         posts.setCreatedAt(System.currentTimeMillis());
         posts.setUpdatedAt(System.currentTimeMillis());
@@ -69,8 +69,7 @@ public class PostsController {
     public ResultVo edit(@RequestBody Posts posts) {
 
         Posts oldPost = postsService.getById(posts.getId());
-        // TODO XXX: get login user id
-        Long loginUserId = 1L;
+        Long loginUserId = AuthUtil.getLoginUserId();
         if(oldPost == null || oldPost.getUserId() != loginUserId) {
             return ResultVo.failed("不能修改他人帖子");
         }
@@ -83,8 +82,7 @@ public class PostsController {
     @DeleteMapping("/{id}")
     public ResultVo deletePostsById(@PathVariable Long id) {
 
-        // TODO XXX: get login user id
-        Long loginUserId = 1L;
+        Long loginUserId = AuthUtil.getLoginUserId();
         Posts post = postsService.getById(id);
         if(post == null || post.getUserId() != loginUserId) {
             return ResultVo.failed("不能删除他人帖子");

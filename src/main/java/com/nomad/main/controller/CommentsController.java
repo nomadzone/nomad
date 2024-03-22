@@ -6,6 +6,7 @@ import com.nomad.main.entity.Comments;
 import com.nomad.main.entity.Posts;
 import com.nomad.main.service.CommentsService;
 import com.nomad.main.service.PostsService;
+import com.nomad.main.utils.AuthUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,8 +54,7 @@ public class CommentsController {
         // comments.setStatus(true); // 该字段无效
 
         comments.setId(null);
-        // TODO XXX: login user id
-        Long loginUserId = 1L;
+        Long loginUserId = AuthUtil.getLoginUserId();
         comments.setUserId(loginUserId);
         comments.setCreatedAt(System.currentTimeMillis());
 
@@ -70,8 +70,7 @@ public class CommentsController {
 
         boolean authFlag = false;
 
-        // TODO XXX: login user id
-        Long loginUserId = 1L;
+        Long loginUserId = AuthUtil.getLoginUserId();
         if(comment != null && comment.getUserId() == loginUserId) {
             authFlag = true;
         }

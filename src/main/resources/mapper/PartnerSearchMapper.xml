@@ -23,7 +23,15 @@
     </sql>
 
     <select id="findByUserId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select * from partner_search where id = #{id} and intiator_id = #{loginUserId}
+    </select>
+
+    <select id="findByUserId2" parameterType="java.lang.Long" resultMap="BaseResultMap">
         select * from partner_search where intiator_id = #{loginUserId}
+    </select>
+
+    <select id="search" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select * from partner_search where location_name like '%${key}%' or title like '%${key}%' or content like '%${key}%'
     </select>
 
 </mapper>

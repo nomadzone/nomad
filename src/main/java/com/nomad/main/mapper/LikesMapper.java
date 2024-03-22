@@ -22,6 +22,8 @@ public interface LikesMapper extends BaseMapper<Likes> {
 
     List<Likes> getByUserId(Long loginUserId);
 
+    int countLike(Long userId);
+
     List<LikesTopVo> getTop3(List<Long> postIds);
     List<LikesTopVo> getTop(List<Long> postIds);
 }

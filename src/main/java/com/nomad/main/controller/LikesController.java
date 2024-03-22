@@ -4,6 +4,7 @@ package com.nomad.main.controller;
 import com.nomad.main.dto.ResultVo;
 import com.nomad.main.entity.Likes;
 import com.nomad.main.service.LikesService;
+import com.nomad.main.utils.AuthUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +30,12 @@ public class LikesController {
     @PostMapping("/{postId}")
     public ResultVo like(@PathVariable Long postId) {
 
-        // TODO XXX: login user id
-        Long loginUserId = 1L;
+        Long loginUserId = AuthUtil.getLoginUserId();
 
         Likes like = Likes.builder()
                 .postId(postId)
                 .userId(loginUserId)
+                .createdAt(System.currentTimeMillis())
                 .build();
 
         // Prevent duplicate likes.
@@ -51,8 +52,7 @@ public class LikesController {
     @DeleteMapping("/{postId}")
     public ResultVo unlike(@PathVariable Long postId) {
 
-        // TODO XXX: login user id
-        Long loginUserId = 1L;
+        Long loginUserId = AuthUtil.getLoginUserId();
 
         Likes like = likesService.findByPostId(postId, loginUserId);
         if(like == null) {

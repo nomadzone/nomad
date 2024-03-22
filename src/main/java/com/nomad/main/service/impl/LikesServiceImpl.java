@@ -33,4 +33,8 @@ public class LikesServiceImpl extends ServiceImpl<LikesMapper, Likes> implements
         return list;
     }
 
+    public int countLike(Long userId) {
+        return likesMapper.countLike(userId);
+    }
+
 }

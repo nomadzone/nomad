@@ -18,4 +18,12 @@
         select * from fan where user_id = #{userId} and fan_id = #{loginUserId}
     </select>
 
+    <select id="countFollow" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        select count(*) from fan where fan_id = #{userId}
+    </select>
+
+    <select id="countFan" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        select count(*) from fan where user_id = #{userId}
+    </select>
+
 </mapper>
